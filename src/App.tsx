@@ -1,6 +1,12 @@
 import { useEffect, useMemo, useState } from 'react'
 import { heroSlides, navLinks, services, works } from './data'
 
+// Vite rewrites asset URLs it can see at build time, but not ones built as
+// runtime strings. Resolve those against the deploy base so they keep working
+// when the site is served from a GitHub Pages subpath.
+const BASE_URL = import.meta.env.BASE_URL
+const asset = (path: string) => `${BASE_URL}${path.replace(/^\//, '')}`
+
 function ArrowIcon() {
   return (
     <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -44,7 +50,7 @@ function App() {
     <div className="min-h-screen bg-charcoal text-paper antialiased">
       <div
         className="pointer-events-none fixed inset-0 opacity-[0.14]"
-        style={{ backgroundImage: "url('/thin-lines.svg')" }}
+        style={{ backgroundImage: `url('${asset('thin-lines.svg')}')` }}
       />
       <header
         className={`fixed inset-x-0 top-0 z-50 border-b border-paper/10 transition-all duration-500 ${
@@ -90,7 +96,7 @@ function App() {
             <div className="absolute inset-0 bg-charcoal/20" />
           </div>
 
-          <div className="absolute inset-0 opacity-40" style={{ backgroundImage: "url('/pattern-dots.svg')" }} />
+          <div className="absolute inset-0 opacity-40" style={{ backgroundImage: `url('${asset('pattern-dots.svg')}')` }} />
 
           <div className="mx-auto grid min-h-[calc(100vh-6rem)] max-w-7xl grid-cols-12 items-end gap-6 px-5 pb-14 sm:px-8 lg:pb-20">
             <div className="col-span-12 max-w-3xl md:col-span-7 lg:col-span-6">
@@ -233,16 +239,16 @@ function App() {
               <div className="rounded-2xl border border-paper/10 bg-paper/5 p-6">
                 <p className="text-[11px] uppercase tracking-[0.45em] text-paper/55">Social</p>
                 <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                  <a className="inline-flex items-center gap-3 text-sm text-paper/78 transition hover:text-ochre" href="/">
+                  <a className="inline-flex items-center gap-3 text-sm text-paper/78 transition hover:text-ochre" href={BASE_URL}>
                     <ArrowIcon /> Instagram
                   </a>
-                  <a className="inline-flex items-center gap-3 text-sm text-paper/78 transition hover:text-ochre" href="/">
+                  <a className="inline-flex items-center gap-3 text-sm text-paper/78 transition hover:text-ochre" href={BASE_URL}>
                     <ArrowIcon /> Pinterest
                   </a>
-                  <a className="inline-flex items-center gap-3 text-sm text-paper/78 transition hover:text-ochre" href="/">
+                  <a className="inline-flex items-center gap-3 text-sm text-paper/78 transition hover:text-ochre" href={BASE_URL}>
                     <ArrowIcon /> LinkedIn
                   </a>
-                  <a className="inline-flex items-center gap-3 text-sm text-paper/78 transition hover:text-ochre" href="/">
+                  <a className="inline-flex items-center gap-3 text-sm text-paper/78 transition hover:text-ochre" href={BASE_URL}>
                     <ArrowIcon /> Behance
                   </a>
                 </div>
